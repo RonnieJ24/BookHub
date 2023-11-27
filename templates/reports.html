@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reports - BookHub</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="/">BookHub</a>
+    </nav>
+    <div class="container mt-3">
+        <h1>Reports</h1>
+        <ul class="list-group mt-3">
+            {% for entry in report_data %}
+                <li class="list-group-item">{{ entry['authors'] }}: {{ entry['total'] }} books</li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary mt-2">Back to Catalog</a>
+    </div>
+</body>
+</html>
