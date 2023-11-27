@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BookHub</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="/">BookHub</a>
+    </nav>
+    <div class="container mt-3">
+        <h1>BookHub Catalog</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-success">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <form action="/add" method="post" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="title_or_isbn" class="form-control" placeholder="Add by Title or ISBN" required>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-outline-secondary">Add Book</button>
+                </div>
+            </div>
+        </form>
+        <form action="/search" method="get" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="query" class="form-control" placeholder="Search Books">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-outline-secondary">Search</button>
+                </div>
+            </div>
+        </form>
+        <a href="/reports" class="btn btn-info mb-3">Generate Reports</a>
+        <ul class="list-group">
+            {% for book in books %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ book['title'] }} by {{ book['authors'] }}
+                    <div>
+                        <a href="/book/{{ book['id'] }}" class="btn btn-info btn-sm">More Info</a>
+                        <a href="/update/{{ book['id'] }}" class="btn btn-warning btn-sm">Update</a>
+                        <a href="/delete/{{ book['id'] }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this book?');">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
