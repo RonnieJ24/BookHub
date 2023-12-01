@@ -3,7 +3,7 @@ from mysql.connector import Error
 
 
 class DBManager:
-    def __init__(self):
+    def __init__(self):  # Initializes a connection to the MySQL database.
         try:
             self.conn = mysql.connector.connect(
                 host="localhost",
@@ -11,7 +11,7 @@ class DBManager:
                 password="Study2023$",
                 database="bookhub3",
             )
-        except Error as e:
+        except Error as e:  # Error handling is included for failed connections.
             print(f"Error connecting to MySQL Database: {e}")
             self.conn = None
 
@@ -51,10 +51,10 @@ class DBManager:
         return self.execute_query("SELECT id, title, authors FROM books")
 
     def get_book_by_id(self, book_id):
-        cursor = self.conn.cursor(dictionary=True)  # Make sure to use dictionary cursor
+        cursor = self.conn.cursor(dictionary=True)
         cursor.execute("SELECT * FROM books WHERE id = %s", (book_id,))
         book = cursor.fetchone()
-        cursor.close()  # Don't forget to close the cursor
+        cursor.close()
         return book if book else None
 
     def update_book(self, book_id, book_data):
@@ -85,7 +85,6 @@ class DBManager:
 
     def get_books_sorted_filtered(self, sort_by="title", order="asc", filter_by=None):
         # Ensure the sort_by and order parameters are safe to use in a query
-        # For a production system, you'd want a safer way to handle dynamic queries to avoid SQL injection
         query = "SELECT * FROM books"
         filter_values = []
         if filter_by:
