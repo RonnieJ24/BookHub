@@ -2,6 +2,8 @@ import requests
 
 
 def fetch_book_details(title_or_isbn):
+    # Calls the Google Books API with the provided title or ISBN.
+    # Parses and returns the relevant book details if found, otherwise returns None.
     base_url = "https://www.googleapis.com/books/v1/volumes"
     params = {"q": title_or_isbn}
     response = requests.get(base_url, params=params)
