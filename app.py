@@ -12,15 +12,23 @@ db_manager = DBManager()
 
 @app.route("/books")
 def books():
-    sort_by = request.args.get("sort_by", "title")
-    order = request.args.get("order", "asc")
-    filter_by = request.args.get("filter", None)
-    books = db_manager.get_books_sorted_filtered(sort_by, order, filter_by)
+    sort_by = request.args.get(
+        "sort_by", "title"
+    )  # 'sort_by' determines the attribute to sort the books by, defaulting to 'title'.
+    order = request.args.get(
+        "order", "asc"
+    )  # 'order' specifies the sorting order, either 'asc' for ascending or 'desc' for descending.
+    filter_by = request.args.get(
+        "filter", None
+    )  # 'filter_by' applies a filter to the book attributes if provided.
+    books = db_manager.get_books_sorted_filtered(
+        sort_by, order, filter_by
+    )  # The 'get_books_sorted_filtered' method in 'db_manager' will handle the query construction.
     return render_template("index.html", books=books)
 
 
 @app.route("/")
-def index():
+def index():  # Route to display the home page with the book catalog. Includes sorting functionality.
     books = db_manager.get_all_books()
     return render_template("index.html", books=books)
 
@@ -78,9 +86,7 @@ def delete_book(book_id):
 def search():
     query = request.args.get("query")
     if query:
-        books = db_manager.search_books(
-            query
-        )  # You'll need to implement this method in db_manager.py
+        books = db_manager.search_books(query)
         return render_template("index.html", books=books)
     return redirect(url_for("index"))
 
