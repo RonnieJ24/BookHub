@@ -50,10 +50,6 @@ Contributions are welcome! Here's how you can contribute:
 4. Push to the branch (`git push origin feature/AmazingFeature`).
 5. Open a pull request.
 
-## License
-
-Distributed under the MIT License. See `LICENSE` in the repository for more information.
-
 ## Contact
 
 Rani - [rani_yaqoob@icloud.com](mailto:rani_yaqoob@icloud.com)
